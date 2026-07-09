@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanoclone"
+version = "1.0.0"
+description = "git clone, implemented from scratch on the Python standard library"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["git", "packfile", "protocol", "clone", "zero-dependency"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+# Intentionally empty: nanoclone depends on nothing outside the standard library.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Wasserpuncher/nanoclone"
+Issues = "https://github.com/Wasserpuncher/nanoclone/issues"
+
+[project.scripts]
+nanoclone = "nanoclone.cli:main"
+
+[tool.setuptools]
+packages = ["nanoclone"]

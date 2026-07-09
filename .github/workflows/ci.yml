@@ -1,0 +1,37 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # The differential tests compare our parser against the real git binary,
+      # which the runner already provides.
+      - name: Show git version
+        run: git --version
+
+      - name: Run the test suite (offline)
+        run: python -m unittest discover -s tests -v
+
+      # Cloning a real repository over the network is opt-in, so it cannot make
+      # the suite flaky for contributors working offline.
+      - name: Run the network tests
+        env:
+          NANOCLONE_NETWORK_TESTS: "1"
+        run: python -m unittest discover -s tests -v
