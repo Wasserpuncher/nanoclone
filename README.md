@@ -56,6 +56,7 @@ matter of opinion here.
 
 Requires Python 3.10 or newer. There is nothing to install:
 
+<!-- readme-check: skip=clones-this-repo-into-itself -->
 ```console
 $ git clone https://github.com/Wasserpuncher/nanoclone && cd nanoclone
 $ python -m nanoclone --help
