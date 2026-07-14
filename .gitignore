@@ -6,3 +6,6 @@ dist/
 .venv/
 venv/
 .pytest_cache/
+Hello-World/
+hi/
+requests/
