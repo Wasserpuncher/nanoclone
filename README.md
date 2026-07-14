@@ -64,13 +64,20 @@ $ python -m nanoclone --help
 
 ## Usage
 
+<!-- readme-check: skip=writes-a-real-clone-into-your-working-directory -->
 ```console
 # Clone the remote's default branch
 $ python -m nanoclone clone https://github.com/octocat/Hello-World
 
 # Pick a branch and a destination
 $ python -m nanoclone clone https://github.com/octocat/Hello-World hi -b test
+```
 
+The two above are marked not-to-be-run, and only because they would leave a
+`Hello-World/` and a `hi/` behind in whatever directory you checked this out
+into. Everything below is run on every CI build.
+
+```console
 # List the refs a remote advertises, without downloading anything
 $ python -m nanoclone ls-remote https://github.com/octocat/Hello-World
 7fd1a60b01f91b314f59955a4e4d4e80d8edf11d	HEAD	-> refs/heads/master

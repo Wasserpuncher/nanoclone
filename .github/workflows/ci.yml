@@ -35,3 +35,11 @@ jobs:
         env:
           NANOCLONE_NETWORK_TESTS: "1"
         run: python -m unittest discover -s tests -v
+
+      # The console blocks on the front page are run, and the numbers in them
+      # are compared against what the commands actually print. A README that
+      # quietly stops being true fails the build here.
+      - name: The README must still tell the truth
+        run: |
+          pip install git+https://github.com/Wasserpuncher/readme-check
+          readme-check README.md --no-color
