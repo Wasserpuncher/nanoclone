@@ -17,11 +17,19 @@ Cloning into 'requests'...
   checked out 130 files
 
 $ cd requests && git status --porcelain   # no output: Git sees nothing to do
-$ git fsck --strict                       # the object store is consistent
+$ git fsck --strict                       # every object connects and hashes out
 ```
 
-Nothing here shells out to `git`. The only imports are `hashlib`, `zlib`,
-`struct`, `urllib`, `os`, `pathlib`, `argparse`, `sys` and `time`.
+One honest footnote about that last command: on `psf/requests` it prints
+`badTimezone: invalid author/committer line` for commit `5e6ecdad`. That is not
+this program's doing — a real `git clone` of the same repository produces the
+identical complaint, because one commit in that history was written with a
+malformed timezone years ago. Every object nanoclone wrote is intact and
+correctly hashed; the defect it faithfully reproduced was already there.
+
+Nothing here shells out to `git`. The imports are `hashlib`, `zlib`, `struct`,
+`urllib`, `os`, `pathlib`, `argparse`, `sys`, `time`, plus `dataclasses` and
+`typing` — all standard library, nothing installed.
 
 ---
 
@@ -120,7 +128,10 @@ makes Git itself the judge — 39 tests, no mocks of the format:
 ## Performance
 
 Measured on the 13.8 MB packfile that `git clone` fetches for `psf/requests`
-(26 818 objects, 17 560 of them deltas), Python 3.14, warm page cache:
+(26 818 objects, 17 560 of them deltas), Python 3.14, warm page cache. That is
+more objects than the 25 624 in the transcript above, and deliberately so: this
+row measures the *full* clone — every ref — while `nanoclone clone` asks for one
+branch. Both numbers drift upward as the repository grows.
 
 | Phase | Time |
 | --- | --- |
