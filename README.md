@@ -8,12 +8,13 @@ against its SHA-1, and writes a working tree plus a valid `.git` index.
 
 The result is a repository that **real Git considers clean**:
 
+<!-- readme-check: skip=clones-13-MB-over-the-network -->
 ```console
 $ python -m nanoclone clone https://github.com/psf/requests
 Cloning into 'requests'...
-  branch main -> 4c800e9aea20
-  received pack: 13232.5 KiB in 2.8s
-  resolved 25624 objects
+  branch main -> ...
+  received pack: ~13232.5 KiB in ~2.8s
+  resolved ~25624 objects
   checked out 130 files
 
 $ cd requests && git status --porcelain   # no output: Git sees nothing to do
